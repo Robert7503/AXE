@@ -1,0 +1,439 @@
+-- PROCEDIMIENTOS SE DEBEN DE CORRER EN ORDEN Y VIENDO SI TIENEN CAMPOS RELACIONALES.
+
+-- *********** PROC UPDATE USUARIOS ***********
+
+Create or Replace procedure UpPersonUser
+(
+    UP_COD_USUAR INT,
+	UP_COD_ROL INTEGER,                    
+	UP_NOM_USUARIO VARCHAR (70),       
+	UP_NUM_ID VARCHAR (30),            
+	UP_DIR_RESIDENCIA VARCHAR(100),    
+	UP_COD_TELEFONO INTEGER,           
+	UP_COD_EMAIL INTEGER,              
+	UP_CONTRASEÑA VARCHAR (100),       
+	UP_EST_USUARIO ESTADO,
+	UP_TIP_USUARIO TIPO
+	
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    UPDATE PERSON_USUARIOS SET
+	COD_ROL = UP_COD_ROL,                 
+	NOM_USUARIO = UP_NOM_USUARIO,    
+	NUM_ID = UP_NUM_ID,           
+	DIR_RESIDENCIA = UP_DIR_RESIDENCIA,   
+	COD_TELEFONO = UP_COD_TELEFONO,         
+	COD_EMAIL = UP_COD_EMAIL,          
+	CONTRASEÑA = UP_CONTRASEÑA,  
+	EST_USUARIO = UP_EST_USUARIO,
+	TIP_USUARIO = UP_TIP_USUARIO,
+	FEC_CREACION = CURRENT_DATE
+	WHERE COD_USUARIO = UP_COD_USUAR;
+	END
+	$$;
+	
+	CALL UpPersonUser(3,null,'NOE Robert','090909','TILUARQUE3'
+					  ,null,null,'1234','NUEVO','USUARIO');
+
+SELECT * FROM PERSON_USUARIOS;		
+
+-- ******************************************************
+
+-- ************* PROC UPDATE EMPLEADOS *************************
+
+Create or Replace procedure UpPersonEmple
+(
+    UP_COD_EMPLE INT,
+	UP_COD_USUARIO INTEGER,                    
+	UP_NOM_EMPLEADO VARCHAR (70),       
+	UP_NUM_ID VARCHAR (30),            
+	UP_DIR_RESIDENCIA VARCHAR(100),    
+	UP_COD_TELEFONO INTEGER,           
+	UP_COD_EMAIL INTEGER,              
+	UP_CONTRASEÑA VARCHAR (100),       
+	UP_EST_USUARIO ESTADO
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+   UPDATE PERSON_EMPLEADOS SET                    
+	COD_USUARIO = UP_COD_USUARIO,
+	NOM_EMPLEADO = UP_NOM_EMPLEADO,
+	NUM_ID = UP_NUM_ID,             
+	DIR_RESIDENCIA = UP_DIR_RESIDENCIA,  
+	COD_TELEFONO = UP_COD_TELEFONO,         
+	COD_EMAIL = UP_COD_EMAIL,            
+	CONTRASEÑA = UP_CONTRASEÑA,     
+	EST_USUARIO = UP_EST_USUARIO,
+	FEC_CREACION = CURRENT_DATE
+	WHERE COD_EMPLEADO = UP_COD_EMPLE;                   
+	END
+	$$;
+	
+	CALL UpPersonEmple(2,1,'NOE Garcia','090909','TILUARQUE'
+					  ,null,null,'1234','NUEVO');
+					  
+	SELECT * FROM PERSON_EMPLEADOS;		
+  
+  -- ****************************************************
+  
+-- **************** PROC UPDATE DONANTES ****************
+
+Create or Replace procedure UpPersonDonan
+(
+    UP_COD_DONAN INT,
+	UP_COD_USUARIO INTEGER,                    
+	UP_NOM_EMPLEADO VARCHAR (70),       
+	UP_NUM_ID VARCHAR (30),            
+	UP_DIR_RESIDENCIA VARCHAR(100),    
+	UP_COD_TELEFONO INTEGER,           
+	UP_COD_EMAIL INTEGER,              
+	UP_CONTRASEÑA VARCHAR (100),       
+	UP_EST_USUARIO ESTADO
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    UPDATE PERSON_DONANTES SET                    
+	COD_USUARIO = UP_COD_USUARIO,
+	NOM_EMPLEADO = UP_NOM_EMPLEADO,
+	NUM_ID = UP_NUM_ID,           
+	DIR_RESIDENCIA = UP_DIR_RESIDENCIA,   
+	COD_TELEFONO = UP_COD_TELEFONO,          
+	COD_EMAIL = UP_COD_EMAIL,             
+	CONTRASEÑA = UP_CONTRASEÑA,      
+	EST_USUARIO = UP_EST_USUARIO,
+	FEC_CREACION = CURRENT_DATE
+    WHERE COD_DONANTES = UP_COD_DONAN;   
+	END
+	$$;
+	
+	CALL UpPersonDonan(1,1,'NOE vasques','090909','TILUARQUE'
+					  ,null,null,'1234','NUEVO');
+					  
+	SELECT * FROM PERSON_DONANTES;	
+
+-- *****************************************************
+
+-- *************** PROC UPDATE ROLES **************
+
+Create or Replace procedure UpSegRoles
+(
+   UP_COD_ROLES INTEGER,
+	UP_TIP_ROLES VARCHAR(20),                    
+	UP_DES_ROLES VARCHAR (50)       
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    UPDATE SEG_ROLES SET
+	COD_ROLES = UP_COD_ROLES,
+	TIP_ROLES = UP_TIP_ROLES,
+	DES_ROLES = UP_DES_ROLES,
+	FEC_MODIFICACION = CURRENT_DATE
+	WHERE COD_ROLES = UP_COD_ROLES;
+	                  
+	END
+	$$;
+	
+	CALL UpSegRoles(1,'UPDATE','NUEVO INSERT DE USER');
+					  
+	SELECT * FROM SEG_ROLES;
+-- ********************************************************  
+  
+ -- ***************** PROC UPDATE SEG PERMISOS ************
+ 
+ Create or Replace procedure UpSegPermisos
+(
+	UP_COD_PERMISOS INTEGER,
+    UP_COD_ROL INTEGER,
+	UP_PER_INSERCION VARCHAR(1),                    
+	UP_PER_ELIMINAR VARCHAR(1),
+	UP_PER_ACTUALIZAR VARCHAR(1),
+	UP_PER_CONSULTAR VARCHAR(1)
+	
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+   UPDATE SEG_PERMISOS SET
+	COD_PERMISOS = UP_COD_PERMISOS,
+	COD_ROL = UP_COD_ROL,
+	PER_INSERCION = UP_PER_INSERCION,                    
+	PER_ELIMINAR = UP_PER_ELIMINAR,
+	PER_ACTUALIZAR = UP_PER_ACTUALIZAR,
+	PER_CONSULTAR = UP_PER_CONSULTAR,
+	FEC_MODIFICACION = CURRENT_DATE
+    WHERE COD_PERMISOS = UP_COD_PERMISOS;
+	END
+	$$;
+	
+CALL UpSegPermisos(2,1,'1','1','0','1');
+					  
+	SELECT * FROM SEG_PERMISOS;	
+  
+ -- **********************************************
+ 
+ -- *************** PROC UPDATE EMAIL ***********
+ 
+ Create or Replace procedure UpPersonEmail
+(
+	UP_COD_EMAIL INTEGER,
+    UP_DIR_CORREO VARCHAR(50),
+	UP_DES_CORREO VARCHAR(50)
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    UPDATE PERSON_EMAILES SET
+	COD_EMAIL = UP_COD_EMAIL,
+    DIR_CORREO = UP_DIR_CORREO,
+	DES_CORREO = UP_DES_CORREO,                    
+	FEC_CREACION = CURRENT_DATE
+    WHERE COD_EMAIL = UP_COD_EMAIL; 
+	END
+	$$;
+	
+CALL UpPersonEmail(1,'WOLFmoon@NAH','CLOSED');
+					  
+	SELECT * FROM PERSON_EMAILES;	
+  
+ -- ******************************************** 
+ 
+ -- ************** PROC UPDATE TELEFONOS ***********
+ 
+ Create or Replace procedure UpPersonTelefonos
+(
+	UP_COD_TELEFONO INTEGER,
+    UP_NUM_TELEFONO VARCHAR(32),
+	UP_TIP_TELEFONO TELEFONO	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    UPDATE PERSON_TELEFONOS SET
+	COD_TELEFONO = UP_COD_TELEFONO,
+    NUM_TELEFONO = UP_NUM_TELEFONO,
+	TIP_TELEFONO = UP_TIP_TELEFONO
+	WHERE COD_TELEFONO = UP_COD_TELEFONO;
+	END
+	$$;
+	
+CALL UpPersonTelefonos(1,'12345678','P');
+					  
+	SELECT * FROM PERSON_TELEFONOS;	
+  
+ -- ********************************************** 
+ 
+ -- ************ PROC UPDATE RELTEL **************
+ Create or Replace procedure UpPersonRelTel
+(
+	UP_COD_RELTEL INTEGER,
+	UP_COD_TELEFONO INTEGER,
+	UP_COD_USUARIO INTEGER
+ 
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+   UPDATE PERSON_RELTEL SET
+	COD_RELTEL = UP_COD_RELTEL,
+    COD_TELEFONO = UP_COD_TELEFONO,
+	COD_USUARIO = UP_COD_USUARIO   
+	WHERE COD_RELTEL = UP_COD_RELTEL;   
+	END
+	$$;
+	
+CALL UpPersonRelTel(1,1,3);
+					  
+	SELECT * FROM PERSON_RELTEL;	
+  
+ -- ************************************************** 
+ 
+ -- ******************* PROC UPDATE SEG PREG USER  ******
+ 
+ Create or Replace procedure UpSegPregUser
+(
+	UP_COD_PREGUNTA INTEGER,
+	UP_NOM_PREGUNTA VARCHAR (50),
+	UP_COD_USUARIO INTEGER
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    UPDATE SEG_PREG_USER SET
+	COD_PREGUNTA = UP_COD_PREGUNTA,
+    NOM_PREGUNTA = UP_NOM_PREGUNTA,
+	COD_USUARIO = UP_COD_USUARIO,
+	FEC_CREACION = CURRENT_DATE		
+	WHERE COD_PREGUNTA = UP_COD_PREGUNTA;
+	END
+	$$;
+	
+CALL UpSegPregUser(1,'QUE ES',3);
+					  
+	SELECT * FROM SEG_PREG_USER;	
+  
+ -- ***************************************************
+ 
+ -- *************** PROC UPDATE PREG RESPUESTA *********
+ Create or Replace procedure UpSegPregRes
+(
+	UP_COD_RESPUEST INTEGER,
+	UP_COD_PREGUNTA INTEGER,
+	UP_COD_USUARIO INTEGER,
+	UP_DES_RESPUESTA VARCHAR(70)
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    UPDATE SEG_PREG_RESPUESTA SET
+	COD_RESPUEST = UP_COD_RESPUEST,
+	COD_PREGUNTA = UP_COD_PREGUNTA,
+	COD_USUARIO = UP_COD_USUARIO,
+	DES_RESPUESTA = UP_DES_RESPUESTA,
+	FEC_RESPUEST = CURRENT_DATE
+	WHERE COD_RESPUEST = UP_COD_RESPUEST;        
+	END
+	$$;
+	
+CALL UpSegPregRes(1,1,3,'respuesta');
+					  
+	SELECT * FROM SEG_PREG_RESPUESTA;
+  
+  -- ****************************************************
+  
+  -- ***************** PROC UPDATE DIRECCIONES ***********
+  
+  Create or Replace procedure UpPersonDir
+(
+	UP_COD_DIRECCION INTEGER,
+	UP_DIR_DEPARTAMENTO VARCHAR(50),
+	UP_DIR_MUNICIPIO VARCHAR(50),
+	UP_DIR_ALDEA VARCHAR(50),
+	UP_DES_DETALLE VARCHAR(50)
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    UPDATE PERSON_DIRECCIONES SET
+	COD_DIRECCION = UP_COD_DIRECCION, 
+	DIR_DEPARTAMENTO = UP_DIR_DEPARTAMENTO,
+	DIR_MUNICIPIO = UP_DIR_MUNICIPIO,
+	DIR_ALDEA = UP_DIR_ALDEA,
+	DES_DETALLE = UP_DES_DETALLE
+	WHERE COD_DIRECCION = UP_COD_DIRECCION;
+	END
+	$$;
+	
+CALL UpPersonDir(1,'tgu','MDC','TLQ','DIR INGRESADA');
+					  
+	SELECT * FROM PERSON_DIRECCIONES;
+  
+ -- ********************************************************
+ 
+ -- *********************** PROC UPDATE DONACIONES **********
+ 
+ Create or Replace procedure UpDonaciones
+(
+	UP_COD_DONACION INTEGER,
+	UP_NOM_INSTITUCION VARCHAR(40),
+	UP_TIP_DONACION VARCHAR(40),
+	UP_EST_DONACION EST_DONA,
+	UP_DES_DONACION VARCHAR(40)
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    UPDATE DONACIONES SET
+	COD_DONACION = UP_COD_DONACION,
+	NOM_INSTITUCION = UP_NOM_INSTITUCION,
+	TIP_DONACION = UP_TIP_DONACION,
+	EST_DONACION = UP_EST_DONACION,
+	DES_DONACION = UP_DES_DONACION,
+	FEC_DONACION = CURRENT_DATE
+    WHERE COD_DONACION = UP_COD_DONACION;
+	END
+	$$;
+	
+CALL UpDonaciones(1,'Viveres','Cereales','POR CONFIRMAR','ESCASA');
+					  
+	SELECT * FROM DONACIONES;
+  
+ -- ********************************************************************
+ 
+ -- ************************ PROC UPDATE AXE_EVALUACION ****************
+ 
+ Create or Replace procedure Up_AXE_EVALUACION
+(
+	UP_COD_EVALUACION INTEGER,
+	UP_NOM_INSTITUCION VARCHAR(40),
+	UP_COD_DIRECCION VARCHAR(40),
+	UP_DES_EVALUACION VARCHAR(20),
+	UP_EST_EVALUACION VARCHAR(20)
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    UPDATE AXE_EVALUACION SET
+	COD_EVALUACION = UP_COD_EVALUACION,
+	NOM_INSTITUCION = UP_NOM_INSTITUCION,
+	COD_DIRECCION = UP_COD_DIRECCION,
+	DES_EVALUACION = UP_DES_EVALUACION,
+	EST_EVALUACION = UP_EST_EVALUACION
+	WHERE COD_EVALUACION = UP_COD_EVALUACION;	
+	END
+	$$;
+	
+CALL Up_AXE_EVALUACION(1,'CENTRAL','1','POR CONFIRMAR','ESCASA');
+					  
+	SELECT * FROM AXE_EVALUACION;
+  
+ -- ***************************************************************
+ 
+ -- ********************* PROC UPDATE AXE SACE ********************************
+ 
+ Create or Replace procedure Up_AXE_SACE
+(
+	UP_COD_SACE INTEGER,
+	UP_NOM_INSTITUCION VARCHAR(40),
+	UP_DIR_DIRECCION   VARCHAR(40),
+	UP_TIP_CATEGORIA   VARCHAR(40),
+	UP_DES_DONACIONES  VARCHAR(40),
+	UP_TIP_DONACION  VARCHAR(40),
+	UP_DES_SACE VARCHAR(40)
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    UPDATE AXE_SACE SET
+	COD_SACE = UP_COD_SACE,
+	NOM_INSTITUCION = UP_NOM_INSTITUCION,
+	DIR_DIRECCION = UP_DIR_DIRECCION,
+	TIP_CATEGORIA = UP_TIP_CATEGORIA,
+	DES_DONACIONES = UP_DES_DONACIONES,
+	TIP_DONACION = UP_TIP_DONACION,
+	DES_SACE = UP_DES_SACE
+	WHERE COD_SACE = UP_COD_SACE;
+	
+	END
+	$$;
+	
+CALL Up_AXE_SACE(1,'CENTRAL','SPS','POR CONFIRMAR','ESCASA','VIVERES','PENDIENTE');
+					  
+	SELECT * FROM AXE_SACE;	
+  
+-- ******************************************************************************* 
