@@ -1,0 +1,551 @@
+-- PROCEDIMIENTOS SE DEBEN DE CORRER EN ORDEN Y VIENDO SI TIENEN CAMPOS RELACIONALES.
+
+-- *********** PROC USUARIOS ***********
+
+Create or Replace procedure InPersonUser
+(
+ COD_USUAR INOUT INT,
+	COD_ROL INTEGER,                    
+	NOM_USUARIO VARCHAR (70),       
+	NUM_ID VARCHAR (30),            
+	DIR_RESIDENCIA VARCHAR(100),    
+	COD_TELEFONO INTEGER,           
+	COD_EMAIL INTEGER,              
+	CONTRASEÑA VARCHAR (100),       
+	EST_USUARIO ESTADO,
+	TIP_USUARIO TIPO
+	
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO PERSON_USUARIOS(
+	COD_ROL,                    
+	NOM_USUARIO,       
+	NUM_ID,            
+	DIR_RESIDENCIA,    
+	COD_TELEFONO,           
+	COD_EMAIL,              
+	CONTRASEÑA,       
+	EST_USUARIO,
+	TIP_USUARIO,
+	FEC_CREACION
+	) VALUES
+	(
+	COD_ROL,                    
+	NOM_USUARIO,       
+	NUM_ID,            
+	DIR_RESIDENCIA,    
+	COD_TELEFONO,           
+	COD_EMAIL,              
+	CONTRASEÑA,       
+	EST_USUARIO,
+	TIP_USUARIO,
+	CURRENT_DATE
+	) RETURNING COD_USUARIO INTO COD_USUAR;
+	END
+	$$;
+	
+	CALL InPersonUser(null,null,'NOE','090909','TILUARQUE'
+					  ,null,null,'1234','NUEVO','USUARIO');
+
+SELECT * FROM PERSON_USUARIOS;		
+
+-- ******************************************************
+
+-- ************* PROC INSERT EMPLEADOS *************************
+
+Create or Replace procedure InPersonEmple
+(
+    COD_EMPLE INOUT INT,
+	COD_USUARIO INTEGER,                    
+	NOM_EMPLEADO VARCHAR (70),       
+	NUM_ID VARCHAR (30),            
+	DIR_RESIDENCIA VARCHAR(100),    
+	COD_TELEFONO INTEGER,           
+	COD_EMAIL INTEGER,              
+	CONTRASEÑA VARCHAR (100),       
+	EST_USUARIO ESTADO
+	
+	
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO PERSON_EMPLEADOS(                    
+	COD_USUARIO,
+	NOM_EMPLEADO,
+	NUM_ID,            
+	DIR_RESIDENCIA,    
+	COD_TELEFONO,           
+	COD_EMAIL,              
+	CONTRASEÑA,       
+	EST_USUARIO,
+	FEC_CREACION
+	) VALUES
+	(                    
+	COD_USUARIO,
+	NOM_EMPLEADO,
+	NUM_ID,            
+	DIR_RESIDENCIA,    
+	COD_TELEFONO,           
+	COD_EMAIL,              
+	CONTRASEÑA,       
+	EST_USUARIO,	
+	CURRENT_DATE
+	) RETURNING COD_EMPLEADO INTO COD_EMPLE;
+	END
+	$$;
+	
+	CALL InPersonEmple(null,1,'NOE','090909','TILUARQUE'
+					  ,null,null,'1234','NUEVO');
+					  
+	SELECT * FROM PERSON_EMPLEADOS;		
+  
+  -- ****************************************************
+  
+-- **************** PROC INSERT DONANTES ****************
+
+Create or Replace procedure InPersonDonan
+(
+    COD_DONAN INOUT INT,
+	COD_USUARIO INTEGER,                    
+	NOM_EMPLEADO VARCHAR (70),       
+	NUM_ID VARCHAR (30),            
+	DIR_RESIDENCIA VARCHAR(100),    
+	COD_TELEFONO INTEGER,           
+	COD_EMAIL INTEGER,              
+	CONTRASEÑA VARCHAR (100),       
+	EST_USUARIO ESTADO
+	
+	
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO PERSON_DONANTES(                    
+	COD_USUARIO,
+	NOM_EMPLEADO,
+	NUM_ID,            
+	DIR_RESIDENCIA,    
+	COD_TELEFONO,           
+	COD_EMAIL,              
+	CONTRASEÑA,       
+	EST_USUARIO,
+	FEC_CREACION
+	) VALUES
+	(                    
+	COD_USUARIO,
+	NOM_EMPLEADO,
+	NUM_ID,            
+	DIR_RESIDENCIA,    
+	COD_TELEFONO,           
+	COD_EMAIL,              
+	CONTRASEÑA,       
+	EST_USUARIO,	
+	CURRENT_DATE
+	) RETURNING COD_DONANTES INTO COD_DONAN;
+	END
+	$$;
+	
+	CALL InPersonDonan(null,1,'NOE','090909','TILUARQUE'
+					  ,null,null,'1234','NUEVO');
+					  
+	SELECT * FROM PERSON_DONANTES;	
+
+-- *****************************************************
+
+-- *************** PROC INSERT ROLES **************
+
+Create or Replace procedure InSegRoles
+(
+   
+	TIP_ROLES VARCHAR(20),                    
+	DES_ROLES VARCHAR (50)       
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO SEG_ROLES(                    
+	TIP_ROLES,
+	DES_ROLES,
+	FEC_MODIFICACION
+	) VALUES
+	(                    
+	TIP_ROLES,
+	DES_ROLES,		
+	CURRENT_DATE
+	);
+	END
+	$$;
+	
+	CALL InSegRoles('INSERT','NUEVO INSERT DE USER');
+					  
+	SELECT * FROM SEG_ROLES;
+-- ********************************************************  
+  
+ -- ***************** PROC INSERT SEG PERMISOS ************
+ 
+ Create or Replace procedure InSegPermisos
+(
+	COD_PERMISOS INTEGER,
+    COD_ROL INTEGER,
+	PER_INSERCION VARCHAR(1),                    
+	PER_ELIMINAR VARCHAR(1),
+	PER_ACTUALIZAR VARCHAR(1),
+	PER_CONSULTAR VARCHAR(1)
+	
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO SEG_PERMISOS(
+	COD_PERMISOS,
+	COD_ROL,
+	PER_INSERCION,                    
+	PER_ELIMINAR,
+	PER_ACTUALIZAR,
+	PER_CONSULTAR,
+	FEC_MODIFICACION
+	) VALUES
+	(            
+	COD_PERMISOS,
+	COD_ROL,
+	PER_INSERCION,                    
+	PER_ELIMINAR,
+	PER_ACTUALIZAR,
+	PER_CONSULTAR,
+	CURRENT_DATE
+	);
+	END
+	$$;
+	
+CALL InSegPermisos(2,1,'1','1','1','1');
+					  
+	SELECT * FROM SEG_PERMISOS;	
+  
+ -- **********************************************
+ 
+ -- *************** PROC INSERT EMAIL ***********
+ 
+ Create or Replace procedure InPersonEmail
+(
+	COD_EMAIL INTEGER,
+    DIR_CORREO VARCHAR(50),
+	DES_CORREO VARCHAR(50)
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO PERSON_EMAILES(
+	COD_EMAIL,
+    DIR_CORREO,
+	DES_CORREO,                    
+	FEC_CREACION
+	) VALUES
+	(            
+	COD_EMAIL,
+    DIR_CORREO,
+	DES_CORREO,
+	CURRENT_DATE
+	);
+	END
+	$$;
+	
+CALL InPersonEmail(1,'WOLF@NAH','OPEN');
+					  
+	SELECT * FROM PERSON_EMAILES;	
+  
+ -- ******************************************** 
+ 
+ -- ************** PROC INSERT TELEFONOS ***********
+ 
+ Create or Replace procedure InPersonTelefonos
+(
+	COD_TELEFONO INTEGER,
+    NUM_TELEFONO VARCHAR(32),
+	TIP_TELEFONO TELEFONO	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO PERSON_TELEFONOS(
+	COD_TELEFONO,
+    NUM_TELEFONO,
+	TIP_TELEFONO
+	) VALUES
+	(            
+	COD_TELEFONO,
+    NUM_TELEFONO,
+	TIP_TELEFONO
+	);
+	END
+	$$;
+	
+CALL InPersonTelefonos(1,'12345678','P');
+					  
+	SELECT * FROM PERSON_TELEFONOS;	
+  
+ -- ********************************************** 
+ 
+ -- ************ PROC INSERT RELTEL **************
+ Create or Replace procedure InPersonRelTel
+(
+	COD_RELTEL INTEGER,
+	COD_TELEFONO INTEGER,
+	COD_USUARIO INTEGER
+ 
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO PERSON_RELTEL(
+	COD_RELTEL,
+    COD_TELEFONO,
+	COD_USUARIO
+	) VALUES
+	(            
+	COD_RELTEL,
+    COD_TELEFONO,
+	COD_USUARIO
+	);
+	END
+	$$;
+	
+CALL InPersonRelTel(1,1,3);
+					  
+	SELECT * FROM PERSON_RELTEL;	
+  
+ -- ************************************************** 
+ 
+ -- ******************* PROC INSERT SEG PREG USER  ******
+ 
+ Create or Replace procedure InSegPregUser
+(
+	COD_PREGUNTA INTEGER,
+	NOM_PREGUNTA VARCHAR (50),
+	COD_USUARIO INTEGER
+	
+ 
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO SEG_PREG_USER(
+	COD_PREGUNTA,
+    NOM_PREGUNTA,
+	COD_USUARIO,
+	FEC_CREACION
+	) VALUES
+	(            
+	COD_PREGUNTA,
+    NOM_PREGUNTA,
+	COD_USUARIO,
+	CURRENT_DATE	
+	);
+	END
+	$$;
+	
+CALL InSegPregUser(1,'QUE ES',3);
+					  
+	SELECT * FROM SEG_PREG_USER;	
+  
+ -- ***************************************************
+ 
+ -- *************** PROC INSERT PREG RESPUESTA *********
+ Create or Replace procedure InSegPregRes
+(
+	COD_RESPUEST INTEGER,
+	COD_PREGUNTA INTEGER,
+	COD_USUARIO INTEGER,
+	DES_RESPUESTA VARCHAR(70)
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO SEG_PREG_RESPUESTA(
+	COD_RESPUEST,
+	COD_PREGUNTA,
+	COD_USUARIO,
+	DES_RESPUESTA,
+	FEC_RESPUEST
+	) VALUES
+	(            
+	COD_RESPUEST,
+	COD_PREGUNTA,
+	COD_USUARIO,
+	DES_RESPUESTA,
+	CURRENT_DATE	
+	);
+	END
+	$$;
+	
+CALL InSegPregRes(1,1,3,'respuesta');
+					  
+	SELECT * FROM SEG_PREG_RESPUESTA;
+  
+  -- ****************************************************
+  
+  -- ***************** PROC INSERT DIRECCIONES ***********
+  
+  Create or Replace procedure InPersonDir
+(
+	COD_DIRECCION INTEGER,
+	DIR_DEPARTAMENTO VARCHAR(50),
+	DIR_MUNICIPIO VARCHAR(50),
+	DIR_ALDEA VARCHAR(50),
+	DES_DETALLE VARCHAR(50)
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO PERSON_DIRECCIONES(
+	COD_DIRECCION,
+	DIR_DEPARTAMENTO,
+	DIR_MUNICIPIO,
+	DIR_ALDEA,
+	DES_DETALLE
+	) VALUES
+	(            
+	COD_DIRECCION,
+	DIR_DEPARTAMENTO,
+	DIR_MUNICIPIO,
+	DIR_ALDEA,
+	DES_DETALLE	
+	);
+	END
+	$$;
+	
+CALL InPersonDir(1,'tgu','MDC','TLQ','DIR INGRESADA');
+					  
+	SELECT * FROM PERSON_DIRECCIONES;
+  
+ -- ********************************************************
+ 
+ -- *********************** PROC INSERT DONACIONES **********
+ 
+ Create or Replace procedure InDonaciones
+(
+	COD_DONACION INTEGER,
+	NOM_INSTITUCION VARCHAR(40),
+	TIP_DONACION VARCHAR(40),
+	EST_DONACION EST_DONA,
+	DES_DONACION VARCHAR(40)
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO DONACIONES(
+	COD_DONACION,
+	NOM_INSTITUCION,
+	TIP_DONACION,
+	EST_DONACION,
+	DES_DONACION,
+	FEC_DONACION
+	) VALUES
+	(            
+	COD_DONACION,
+	NOM_INSTITUCION,
+	TIP_DONACION,
+	EST_DONACION,
+	DES_DONACION,
+	CURRENT_DATE
+	);
+	END
+	$$;
+	
+CALL InDonaciones(1,'Viveres','Cereales','POR CONFIRMAR','ESCASA');
+					  
+	SELECT * FROM DONACIONES;
+  
+ -- ********************************************************************
+ 
+ -- ************************ PROC INSERT AXE_EVALUACION ****************
+ 
+ Create or Replace procedure AXE_EVALUACION
+(
+	COD_EVALUACION INTEGER,
+	NOM_INSTITUCION VARCHAR(40),
+	COD_DIRECCION VARCHAR(40),
+	DES_EVALUACION VARCHAR(20),
+	EST_EVALUACION VARCHAR(20)
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO AXE_EVALUACION(
+	COD_EVALUACION,
+	NOM_INSTITUCION,
+	COD_DIRECCION,
+	DES_EVALUACION,
+	EST_EVALUACION
+	) VALUES
+	(            
+	COD_EVALUACION,
+	NOM_INSTITUCION,
+	COD_DIRECCION,
+	DES_EVALUACION,
+	EST_EVALUACION
+	);
+	END
+	$$;
+	
+CALL AXE_EVALUACION(1,'CENTRAL','1','POR CONFIRMAR','ESCASA');
+					  
+	SELECT * FROM AXE_EVALUACION;
+  
+ -- ***************************************************************
+ 
+ -- ********************* AXE SACE ********************************
+ 
+ Create or Replace procedure AXE_SACE
+(
+	COD_SACE INTEGER,
+	NOM_INSTITUCION VARCHAR(40),
+	DIR_DIRECCION   VARCHAR(40),
+	TIP_CATEGORIA   VARCHAR(40),
+	DES_DONACIONES  VARCHAR(40),
+	TIP_DONACION  VARCHAR(40),
+	DES_SACE VARCHAR(40)
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+INSERT INTO AXE_SACE(
+	COD_SACE,
+	NOM_INSTITUCION,
+	DIR_DIRECCION,
+	TIP_CATEGORIA,
+	DES_DONACIONES,
+	TIP_DONACION,
+	DES_SACE
+	) VALUES
+	(            
+	COD_SACE,
+	NOM_INSTITUCION,
+	DIR_DIRECCION,
+	TIP_CATEGORIA,
+	DES_DONACIONES,
+	TIP_DONACION,
+	DES_SACE
+	);
+	END
+	$$;
+	
+CALL AXE_SACE(1,'CENTRAL','SPS','POR CONFIRMAR','ESCASA','VIVERES','PENDIENTE');
+					  
+	SELECT * FROM AXE_SACE;	
+  
+-- *******************************************************************************  
+ 
+ 
