@@ -1,0 +1,293 @@
+-- PROCEDIMIENTOS SE DEBEN DE CORRER EN ORDEN Y VIENDO SI TIENEN CAMPOS RELACIONALES.
+
+-- *********** PROC DELETE USUARIOS ***********
+
+Create or Replace procedure DelPersonUser
+(
+    DEL_COD_USUAR INT
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    DELETE FROM PERSON_USUARIOS 
+	WHERE COD_USUARIO = DEL_COD_USUAR;
+	END
+	$$;
+	
+	-- CALL DelPersonUser(3);
+
+--SELECT * FROM PERSON_USUARIOS;		
+
+-- ******************************************************
+
+-- ************* PROC DELETE EMPLEADOS *************************
+
+Create or Replace procedure DelPersonEmple
+(
+    DEL_COD_EMPLE INT
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+   DELETE FROM PERSON_EMPLEADOS 
+	WHERE COD_EMPLEADO = DEL_COD_EMPLE;                   
+	END
+	$$;
+	
+	-- CALL DelPersonEmple(2);
+					  
+	--SELECT * FROM PERSON_EMPLEADOS;		
+  
+  -- ****************************************************
+  
+-- **************** PROC DELETE DONANTES ****************
+
+Create or Replace procedure DelPersonDonan
+(
+    DEL_COD_DONAN INT
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    DELETE FROM PERSON_DONANTES 
+    WHERE COD_DONANTES = DEL_COD_DONAN;   
+	END
+	$$;
+	
+	-- CALL DelPersonDonan(1);
+					  
+	--SELECT * FROM PERSON_DONANTES;	
+
+-- *****************************************************
+
+-- *************** PROC DELETE ROLES **************
+
+Create or Replace procedure DelSegRoles
+(
+   DEL_COD_ROLES INTEGER
+	       
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    DELETE FROM SEG_ROLES 
+	WHERE COD_ROLES = DEL_COD_ROLES;
+	                  
+	END
+	$$;
+	
+	-- CALL DelSegRoles(1);
+					  
+	--SELECT * FROM SEG_ROLES;
+-- ********************************************************  
+  
+ -- ***************** PROC DELETE SEG PERMISOS ************
+ 
+ Create or Replace procedure UpSegPermisos
+(
+	DEL_COD_PERMISOS INTEGER
+    
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    DELETE FROM SEG_PERMISOS 
+    WHERE COD_PERMISOS = DEL_COD_PERMISOS;
+	END
+	$$;
+	
+-- CALL DelSegPermisos(2);
+					  
+	--SELECT * FROM SEG_PERMISOS;	
+  
+ -- **********************************************
+ 
+ -- *************** PROC DELETE EMAIL ***********
+ 
+ Create or Replace procedure DelPersonEmail
+(
+	DEL_COD_EMAIL INTEGER
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    DELETE FROM PERSON_EMAILES 
+    WHERE COD_EMAIL = DEL_COD_EMAIL; 
+	END
+	$$;
+	
+-- CALL DelPersonEmail(1);
+					  
+	--SELECT * FROM PERSON_EMAILES;	
+  
+ -- ******************************************** 
+ 
+ -- ************** PROC DELETE TELEFONOS ***********
+ 
+ Create or Replace procedure DelPersonTelefonos
+(
+	DEL_COD_TELEFONO INTEGER
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    DELETE FROM PERSON_TELEFONOS 
+	WHERE COD_TELEFONO = DEL_COD_TELEFONO;
+	END
+	$$;
+	
+--CALL PersonTelefonos(1);
+					  
+	--SELECT * FROM PERSON_TELEFONOS;	
+  
+ -- ********************************************** 
+ 
+ -- ************ PROC DELETE RELTEL **************
+ Create or Replace procedure DelPersonRelTel
+(
+	DEL_COD_RELTEL INTEGER
+ 
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+   DELETE FROM PERSON_RELTEL    
+	WHERE COD_RELTEL = DEL_COD_RELTEL;   
+	END
+	$$;
+	
+--CALL DelPersonRelTel(1);
+					  
+	--SELECT * FROM PERSON_RELTEL;	
+  
+ -- ************************************************** 
+ 
+ -- ******************* PROC DELETE SEG PREG USER  ******
+ 
+ Create or Replace procedure DelSegPregUser
+(
+	DEL_COD_PREGUNTA INTEGER
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    DELETE FROM SEG_PREG_USER 		
+	WHERE COD_PREGUNTA = DEL_COD_PREGUNTA;
+	END
+	$$;
+	
+--CALL DelSegPregUser(1);
+					  
+	--SELECT * FROM SEG_PREG_USER;	
+  
+ -- ***************************************************
+ 
+ -- *************** PROC DELETE PREG RESPUESTA *********
+ Create or Replace procedure DelSegPregRes
+(
+	DEL_COD_RESPUEST INTEGER
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    DELETE FROM SEG_PREG_RESPUESTA 
+	WHERE COD_RESPUEST = DEL_COD_RESPUEST;        
+	END
+	$$;
+	
+--CALL DelSegPregRes(1);
+					  
+	--SELECT * FROM SEG_PREG_RESPUESTA;
+  
+  -- ****************************************************
+  
+  -- ***************** PROC DELETE DIRECCIONES ***********
+  
+  Create or Replace procedure DelPersonDir
+(
+	DEL_COD_DIRECCION INTEGER
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    DELETE FROM PERSON_DIRECCIONES 
+	WHERE COD_DIRECCION = DEL_COD_DIRECCION;
+	END
+	$$;
+	
+--CALL DelPersonDir(1);
+					  
+	--SELECT * FROM PERSON_DIRECCIONES;
+  
+ -- ********************************************************
+ 
+ -- *********************** PROC DELETE DONACIONES **********
+ 
+ Create or Replace procedure DelDonaciones
+(
+	DEL_COD_DONACION INTEGER
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    DELETE FROM DONACIONES 
+    WHERE COD_DONACION = DEL_COD_DONACION;
+	END
+	$$;
+	
+--CALL DelDonaciones(1);
+					  
+--	SELECT * FROM DONACIONES;
+  
+ -- ********************************************************************
+ 
+ -- ************************ PROC DELETE AXE_EVALUACION ****************
+ 
+ Create or Replace procedure Del_AXE_EVALUACION
+(
+	DEL_COD_EVALUACION INTEGER
+	
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    DELETE FROM AXE_EVALUACION 
+	WHERE COD_EVALUACION = DEL_COD_EVALUACION;	
+	END
+	$$;
+	
+--CALL Del_AXE_EVALUACION(1);
+					  
+--	SELECT * FROM AXE_EVALUACION;
+  
+ -- ***************************************************************
+ 
+ -- ********************* PROC DELETE AXE SACE ********************************
+ 
+ Create or Replace procedure Del_AXE_SACE
+(
+	DEL_COD_SACE INTEGER
+)
+LANGUAGE plpgsql AS
+$$
+BEGIN
+    DELETE FROM AXE_SACE 
+	WHERE COD_SACE = DEL_COD_SACE;
+	
+	END
+	$$;
+	
+--CALL Del_AXE_SACE(1);
+					  
+--	SELECT * FROM AXE_SACE;	
+  
+-- ******************************************************************************* 
