@@ -1,0 +1,283 @@
+-- PROCEDIMIENTOS SE DEBEN DE CORRER EN ORDEN Y VIENDO SI TIENEN CAMPOS RELACIONALES.
+
+-- *********** FUNCION SELECT USUARIOS ***********
+
+Create or Replace FUNCTION SelPersonUser
+(SEL_COD_USUAR INTEGER)
+RETURNS PERSON_USUARIOS
+LANGUAGE SQL AS
+$$
+    SELECT * FROM PERSON_USUARIOS 
+	WHERE COD_USUARIO = SEL_COD_USUAR;	
+$$;
+	
+--SELECT * FROM SelPersonUser(3);		
+
+-- ******************************************************
+
+-- ************* FUNCION SELEC EMPLEADOS *************************
+
+Create or Replace FUNCTION SelPersonEmple
+(SEL_COD_EMPLE INTEGER)
+RETURNS PERSON_EMPLEADOS
+LANGUAGE SQL AS
+$$
+
+    SELECT *  FROM PERSON_EMPLEADOS 
+	WHERE COD_EMPLEADO = SEL_COD_EMPLE;                   
+
+$$;
+	
+					  
+    --SELECT * FROM SelPersonEmple(1);		
+  
+  -- ****************************************************
+  
+-- **************** FUNCION SELECT DONANTES ****************
+
+Create or Replace FUNCTION SelPersonDonan
+(SEL_COD_DONAN INTEGER)
+RETURNS PERSON_DONANTES
+LANGUAGE SQL AS
+$$
+
+
+    SELECT * FROM PERSON_DONANTES 
+    WHERE COD_DONANTES = SEL_COD_DONAN;   
+
+$$;
+	
+					  
+	--SELECT * FROM SelPersonDonan(1);	
+
+-- *****************************************************
+
+-- *************** FUNCION SELECT ROLES **************
+
+Create or Replace FUNCTION SelSegRoles
+(
+   SEL_COD_ROLES INTEGER
+	       
+	
+)
+
+RETURNS SEG_ROLES
+LANGUAGE SQL AS
+$$
+
+    SELECT * FROM SEG_ROLES 
+	WHERE COD_ROLES = SEL_COD_ROLES;
+	                  
+$$;
+	
+					  
+	--SELECT * FROM SelSegRoles(1);
+-- ********************************************************  
+  
+ -- ***************** FUNCION SELECT SEG PERMISOS ************
+ 
+ Create or Replace FUNCTION SelSegPermisos
+(
+	SEL_COD_PERMISOS INTEGER
+    
+)
+
+RETURNS SEG_PERMISOS
+LANGUAGE SQL AS
+$$
+
+    SELECT * FROM SEG_PERMISOS 
+    WHERE COD_PERMISOS = SEL_COD_PERMISOS;
+	
+$$;
+					  
+	--SELECT * FROM SelSegPermisos(1);	
+  
+ -- **********************************************
+ 
+ -- *************** FUNCION SELECT EMAIL ***********
+ 
+ Create or Replace FUNCTION SelPersonEmail
+(
+	SEL_COD_EMAIL INTEGER
+	
+)
+
+RETURNS PERSON_EMAILES
+LANGUAGE SQL AS
+$$
+
+    SELECT * FROM PERSON_EMAILES 
+    WHERE COD_EMAIL = SEL_COD_EMAIL; 
+	
+$$;
+	
+					  
+	--SELECT * FROM SelPersonEmailes(1);	
+  
+ -- ******************************************** 
+ 
+ -- ************** FUNCION SELECT TELEFONOS ***********
+ 
+ Create or Replace FUNCTION SelPersonTelefonos
+(
+	SEL_COD_TELEFONO INTEGER
+)
+
+RETURNS PERSON_TELEFONOS
+LANGUAGE SQL AS
+$$
+
+    SELECT * FROM PERSON_TELEFONOS 
+	WHERE COD_TELEFONO = SEL_COD_TELEFONO;
+
+$$;
+					  
+	--SELECT * FROM SelPersonTelefonos(1);	
+  
+ -- ********************************************** 
+ 
+ -- ************ FUNCION SELECT RELTEL **************
+ Create or Replace FUNCTION SelPersonRelTel
+(
+	SEL_COD_RELTEL INTEGER
+ 
+)
+
+RETURNS PERSON_RELTEL
+LANGUAGE SQL AS
+$$
+
+   SELECT * FROM PERSON_RELTEL    
+	WHERE COD_RELTEL = SEL_COD_RELTEL;   
+	
+$$;
+					  
+	--SELECT * FROM SelPersonReltel(1);	
+  
+ -- ************************************************** 
+ 
+ -- ******************* FUNCION SELECT SEG PREG USER  ******
+ 
+ Create or Replace FUNCTION SelSegPregUser
+(
+	SEL_COD_PREGUNTA INTEGER
+	
+)
+RETURNS SEG_PREG_USER
+LANGUAGE SQL AS
+$$
+
+    SELECT * FROM SEG_PREG_USER 		
+	WHERE COD_PREGUNTA = SEL_COD_PREGUNTA;
+	
+$$;
+	
+					  
+	--SELECT * FROM SelSegPregUser(1);	
+  
+ -- ***************************************************
+ 
+ -- *************** FUNCION SELECT PREG RESPUESTA *********
+ Create or Replace FUNCTION SelSegPregRes
+(
+	SEL_COD_RESPUEST INTEGER
+	
+)
+
+RETURNS SEG_PREG_RESPUESTA
+LANGUAGE SQL AS
+$$
+
+    SELECT * FROM SEG_PREG_RESPUESTA 
+	WHERE COD_RESPUEST = SEL_COD_RESPUEST;        
+	
+$$;
+						  
+	--SELECT * FROM SelSegPregRes(1);
+  
+  -- ****************************************************
+  
+  -- ***************** FUNCION SELECT DIRECCIONES ***********
+  
+  Create or Replace FUNCTION SelPersonDir
+(
+	SEL_COD_DIRECCION INTEGER
+	
+)
+
+RETURNS PERSON_DIRECCIONES
+LANGUAGE SQL AS
+$$
+
+    SELECT * FROM PERSON_DIRECCIONES 
+	WHERE COD_DIRECCION = SEL_COD_DIRECCION;
+	
+$$;
+					  
+	--SELECT * FROM SelPersonDir(1);
+  
+ -- ********************************************************
+ 
+ -- *********************** FUNCION SELECT DONACIONES **********
+ 
+ Create or Replace FUNCTION SelDonaciones
+(
+	SEL_COD_DONACION INTEGER
+	
+)
+RETURNS DONACIONES
+LANGUAGE SQL AS
+$$
+
+    SELECT * FROM DONACIONES 
+    WHERE COD_DONACION = SEL_COD_DONACION;
+	
+$$;
+	
+					  
+ --SELECT * FROM SelDonaciones(1);
+  
+ -- ********************************************************************
+ 
+ -- ************************ FUNCIONES SELECT AXE_EVALUACION ****************
+ 
+ Create or Replace FUNCTION Sel_AXE_EVALUACION
+(
+	SEL_COD_EVALUACION INTEGER
+	
+)
+
+RETURNS AXE_EVALUACION
+LANGUAGE SQL AS
+$$
+
+    SELECT * FROM AXE_EVALUACION 
+	WHERE COD_EVALUACION = SEL_COD_EVALUACION;	
+	
+$$;
+					  
+   --SELECT * FROM Sel_AXE_EVALUACION(1);
+  
+ -- ***************************************************************
+ 
+ -- ********************* PROC DELETE AXE SACE ********************************
+ 
+ Create or Replace FUNCTION Sel_AXE_SACE
+(
+	SEL_COD_SACE INTEGER
+)
+
+RETURNS AXE_SACE
+LANGUAGE SQL AS
+$$
+
+    SELECT * FROM AXE_SACE 
+	WHERE COD_SACE = SEL_COD_SACE;
+	
+	
+$$;
+					  
+  --SELECT * FROM Sel_AXE_SACE(1);	
+  
+-- ******************************************************************************* 
